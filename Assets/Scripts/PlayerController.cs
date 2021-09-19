@@ -1,18 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using MLAPI;
+using MyBox;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            transform.position += transform.right;
+        }
     }
 }

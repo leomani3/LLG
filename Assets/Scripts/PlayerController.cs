@@ -2,6 +2,7 @@ using System;
 using MLAPI;
 using MyBox;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -15,9 +16,19 @@ public class PlayerController : NetworkBehaviour
     private Vector2 _moveVector;
     private bool _grounded;
 
+    // Je sais pas si y'a une meilleure méthode que faire ça, sorry
+    public Text pseudo;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        // Dans le futur, le nom sera attribué par le manager de la scène
+        // pour chaque player
+        if (pseudo)
+        {
+            pseudo.text = ServerInfos.Pseudo;
+        }
     }
 
     private void Update()

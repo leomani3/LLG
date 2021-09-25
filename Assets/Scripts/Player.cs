@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int _id;
-    public int id
+    private ulong _id;
+    public ulong id
     {
         get
         {

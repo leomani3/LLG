@@ -11,6 +11,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckPositionOffset;
+    [SerializeField] private float gravityMulitplier;
 
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
@@ -40,7 +41,8 @@ public class PlayerController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        _rb.velocity = new Vector2(_moveVector.x, _rb.velocity.y + _moveVector.y);
+        _rb.AddForce(new Vector2(_moveVector.x, 0), ForceMode2D.Force);
+        _rb.velocity += new Vector2(0, Physics.gravity.y * gravityMulitplier);
     }
 
     private void HandleMovement()

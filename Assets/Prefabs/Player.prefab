@@ -100,14 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd9cd571ce58bb4fb289491dfc46830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4000
-  jumpForce: 30
+  moveSpeed: 50000
+  jumpForce: 60
   groundCheckRadius: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   groundCheckPositionOffset: {x: 0, y: -0.5}
-  pseudo: {fileID: 1104158007527146421}
+  gravityMulitplier: 0.4
+  pseudo: {fileID: 0}
 --- !u!114 &216122039184146299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,9 +187,9 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 8
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1

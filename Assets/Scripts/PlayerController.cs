@@ -12,6 +12,11 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckPositionOffset;
     [SerializeField] private float gravityMulitplier;
+    [SerializeField] private KeyCode rightKey;
+    [SerializeField] private KeyCode secondaryRightKey;
+    [SerializeField] private KeyCode leftKey;
+    [SerializeField] private KeyCode secondaryLeftKey;
+    [SerializeField] private KeyCode interactKey;
 
     [Separator("Bump")]
     [SerializeField] private float ejectionForce;
@@ -54,15 +59,16 @@ public class PlayerController : NetworkBehaviour
     {
         _moveVector = Vector2.zero;
         
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(rightKey) || Input.GetKey(secondaryRightKey))
             _moveVector += Vector2.right * moveSpeed * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(leftKey) || Input.GetKey(secondaryLeftKey))
             _moveVector += Vector2.left * moveSpeed * Time.deltaTime;
 
         if (Input.GetKeyDown(KeyCode.Space) && _grounded)
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        if (Input.GetKeyDown(KeyCode.E))
+        
+        if (Input.GetKeyDown(interactKey))
             Interact();
     }
 
@@ -81,6 +87,7 @@ public class PlayerController : NetworkBehaviour
 
     public void Eject(Vector2 direction, float force)
     {
+        _rb.constraints = RigidbodyConstraints2D.None;
         _rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 

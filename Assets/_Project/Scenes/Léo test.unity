@@ -225,6 +225,10 @@ PrefabInstance:
       value: 113
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822561, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
+      propertyPath: playerKingBinding
+      value: 
+      objectReference: {fileID: 11400000, guid: f7c811c5a67019740be6fe2b98ededbe, type: 2}
+    - target: {fileID: 1841465173519822561, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: secondaryRightKey
       value: 100
       objectReference: {fileID: 0}
@@ -278,7 +282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_Name
-      value: Player
+      value: Player 1
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_Layer
@@ -605,7 +609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_Name
-      value: Player (1)
+      value: Player 2
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_Layer

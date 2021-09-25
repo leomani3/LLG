@@ -13,6 +13,11 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Vector2 groundCheckPositionOffset;
     [SerializeField] private float gravityMulitplier;
 
+    [Separator("Bump")]
+    [SerializeField] private float ejectionForce;
+    [SerializeField] private float bumpRadius;
+    [SerializeField] private LayerMask playerLayer;
+
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
     private bool _grounded;
@@ -57,6 +62,26 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && _grounded)
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+        if (Input.GetKeyDown(KeyCode.E))
+            Interact();
+    }
+
+    public void Interact()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, bumpRadius, playerLayer);
+        foreach (Collider2D collider in colliders)
+        {
+            PlayerController player = collider.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.Eject(player.transform.position - transform.position, ejectionForce);
+            }
+        }
+    }
+
+    public void Eject(Vector2 direction, float force)
+    {
+        _rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
     private void GroundCheck()

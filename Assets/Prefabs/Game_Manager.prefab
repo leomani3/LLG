@@ -65,7 +65,12 @@ MonoBehaviour:
     NetworkTransport: {fileID: 7196177217755077185}
     RegisteredScenes:
     - MainMenu
+<<<<<<< HEAD
     - Lobby
+=======
+    - "L\xE9o"
+    - "L\xE9o test"
+>>>>>>> 4e3b939a05a5d12b942cb2d7df95801fb8ed22a3
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}

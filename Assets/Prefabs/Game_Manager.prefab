@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7196177217755077189
+--- !u!1 &6530200241135488514
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,10 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7196177217755077191}
-  - component: {fileID: 7196177217755077190}
-  - component: {fileID: 7196177217755077184}
-  - component: {fileID: 7196177217755077185}
+  - component: {fileID: 6920919525797671489}
+  - component: {fileID: 8931206258517768359}
+  - component: {fileID: 5071935819719294582}
+  - component: {fileID: 1318791222926474255}
   m_Layer: 0
   m_Name: Game_Manager
   m_TagString: Untagged
@@ -19,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7196177217755077191
+--- !u!4 &6920919525797671489
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7196177217755077189}
+  m_GameObject: {fileID: 6530200241135488514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.2132115, y: 0.2352657, z: -0.66880697}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,25 +33,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7196177217755077190
+--- !u!114 &8931206258517768359
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7196177217755077189}
+  m_GameObject: {fileID: 6530200241135488514}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9bd7d6c07d131f4183a8c9caea0f755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7196177217755077184
+--- !u!114 &5071935819719294582
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7196177217755077189}
+  m_GameObject: {fileID: 6530200241135488514}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
@@ -62,15 +62,10 @@ MonoBehaviour:
   LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 7196177217755077185}
+    NetworkTransport: {fileID: 1318791222926474255}
     RegisteredScenes:
     - MainMenu
-<<<<<<< HEAD
     - Lobby
-=======
-    - "L\xE9o"
-    - "L\xE9o test"
->>>>>>> 4e3b939a05a5d12b942cb2d7df95801fb8ed22a3
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
@@ -105,13 +100,13 @@ MonoBehaviour:
       type: {class: NullableBoolSerializable, ns: MLAPI.Configuration, asm: Unity.Multiplayer.MLAPI.Runtime}
       data:
         Value: 1897319656204293034
---- !u!114 &7196177217755077185
+--- !u!114 &1318791222926474255
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7196177217755077189}
+  m_GameObject: {fileID: 6530200241135488514}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b84c2d8dfe509a34fb59e2b81f8e1319, type: 3}

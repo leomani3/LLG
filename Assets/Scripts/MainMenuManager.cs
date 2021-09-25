@@ -13,26 +13,24 @@ using System.Text;
 
 public class MainMenuManager : MonoBehaviour
 {
-    public GameObject MainButtons;
-    public GameObject InfosSub;
+    [SerializeField] private GameObject _mainButtons;
+    [SerializeField] private GameObject _infosSub;
 
-    private GameObject IPText;
-    private GameObject IPInputField;
-    private GameObject PseudoInputField;
-    private GameObject PasswordField;
-    private GameObject PasswordText;
-    private GameObject PlayButton;
+    [SerializeField] private GameObject _ipText;
+    [SerializeField] private GameObject _ipField;
+    [SerializeField] private GameObject _pseudoField;
+    [SerializeField] private GameObject _passwordField;
+    [SerializeField] private GameObject _passwordText;
+    [SerializeField] private GameObject _playButton;
 
     private bool _is_host = false;
-    private string _Pseudo;
-    private string _IP;
+    private string _pseudo;
+    private string _ip;
 
     // Start is called before the first frame update
     void Start()
     {
         ShowMainMenu();
-        ReferenceComponent();
-
     }
 
     // Update is called once per frame
@@ -40,64 +38,30 @@ public class MainMenuManager : MonoBehaviour
     {
     }
 
-    private void ReferenceComponent()
-    {
-        Transform[] childs = InfosSub.transform.GetComponentsInChildren<Transform>();
-        foreach (Transform tr in childs)
-        {
-            GameObject go = tr.gameObject;
-
-            if (go.name == "IPText")
-            {
-                IPText = go;
-            }
-            if (go.name == "IPInputField")
-            {
-                IPInputField = go;
-            }
-            if (go.name == "PseudoInputField")
-            {
-                PseudoInputField = go;
-            }
-            if (go.name == "PlayButton")
-            {
-                PlayButton = go;
-            }
-            if (go.name == "PasswordField")
-            {
-                PasswordField = go;
-            }
-            if (go.name == "PasswordText")
-            {
-                PasswordText = go;
-            }
-        }
-    }
-
     private void ShowMainMenu()
     {
-        MainButtons.SetActive(true);
-        InfosSub.SetActive(false);
+        _mainButtons.SetActive(true);
+        _infosSub.SetActive(false);
     }
 
     private void ShowInfoMenu()
     {
-        MainButtons.SetActive(false);
-        InfosSub.SetActive(true);
+        _mainButtons.SetActive(false);
+        _infosSub.SetActive(true);
 
         if (_is_host)
         {
-            IPText.SetActive(false);
-            IPInputField.SetActive(false);
-            PasswordText.SetActive(false);
-            PasswordField.SetActive(false);
+            _ipText.SetActive(false);
+            _ipField.SetActive(false);
+            _passwordText.SetActive(false);
+            _passwordField.SetActive(false);
         }
         else
         {
-            IPText.SetActive(true);
-            IPInputField.SetActive(true);
-            PasswordText.SetActive(true);
-            PasswordField.SetActive(true);
+            _ipText.SetActive(true);
+            _ipField.SetActive(true);
+            _passwordText.SetActive(true);
+            _passwordField.SetActive(true);
         }
     }
 
@@ -105,7 +69,7 @@ public class MainMenuManager : MonoBehaviour
     // Si les infos sont correctes, rends le bouton jouer disponible
     public void CheckInfos()
     {
-        if (!PseudoInputField && !PlayButton)
+        if (!_pseudoField && !_playButton)
             return;
 
         if (!_is_host)
@@ -114,25 +78,25 @@ public class MainMenuManager : MonoBehaviour
             // Regex d'adresse IP si on garde la feature
             // La regex devrait ressembler à ça avec le port "^([0-9]{1,3}\.){3}[0-9]{1,3}(:[0-9]{1,5})?$"
 
-            if (PseudoInputField.GetComponent<InputField>().text.Length > 2 && PasswordField.GetComponent<InputField>().text.Length == 5)
+            if (_pseudoField.GetComponent<InputField>().text.Length > 2 && _passwordField.GetComponent<InputField>().text.Length == 5)
             {
-                PlayButton.GetComponent<Button>().interactable = true;
+                _playButton.GetComponent<Button>().interactable = true;
             }
             else
             {
-                PlayButton.GetComponent<Button>().interactable = false;
+                _playButton.GetComponent<Button>().interactable = false;
             }
 
         }
         else
         {
-            if (PseudoInputField.GetComponent<InputField>().text.Length > 2)
+            if (_pseudoField.GetComponent<InputField>().text.Length > 2)
             {
-                PlayButton.GetComponent<Button>().interactable = true;
+                _playButton.GetComponent<Button>().interactable = true;
             }
             else
             {
-                PlayButton.GetComponent<Button>().interactable = false;
+                _playButton.GetComponent<Button>().interactable = false;
             }
         }
     }
@@ -170,14 +134,14 @@ public class MainMenuManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void PlayButton_Click()
+    public void _playButton_Click()
     {
         // TO-DO
         // A améliorer
 
         // Va être supprimé
-        ServerInfos.IP = IPInputField.GetComponent<InputField>().text;
-        ServerInfos.Pseudo = PseudoInputField.GetComponent<InputField>().text;
+        ServerInfos.IP = _ipField.GetComponent<InputField>().text;
+        ServerInfos.Pseudo = _pseudoField.GetComponent<InputField>().text;
 
         // Hebergement de la partie
         if (_is_host)
@@ -196,13 +160,13 @@ public class MainMenuManager : MonoBehaviour
 
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
-            NetworkSceneManager.SwitchScene("Léo");
+            NetworkSceneManager.SwitchScene("Lobby");
         }
         // Se connecter en tant que client
         else
         {
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes(PasswordField.GetComponent<InputField>().text);
-            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = PasswordField.GetComponent<InputField>().text.ToUpper();
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes(_passwordField.GetComponent<InputField>().text);
+            NetworkManager.Singleton.GetComponent<UNetTransport>().ConnectAddress = _passwordField.GetComponent<InputField>().text.ToUpper();
             SocketTasks st = NetworkManager.Singleton.StartClient();
             // Je sais pas si cette boucle est necessaire ou pas
             while (!st.IsDone)

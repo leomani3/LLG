@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using MyBox;
 
-public class LeoManager : MonoBehaviour
+public class LobbyManager : MonoBehaviour
 {
     [SerializeField]private Text PasswordText;
 

@@ -705,9 +705,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c383223fd53b94e988d644c902d064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainButtons: {fileID: 1230811798}
-  InfosSub: {fileID: 2070517523}
-  playerInfo: {fileID: 11400000, guid: cadf46dcb44782d489d3d9fc75c0ac38, type: 2}
+  _mainButtons: {fileID: 1230811798}
+  _infosSub: {fileID: 2070517523}
+  _ipText: {fileID: 1515704672}
+  _ipField: {fileID: 1782748273}
+  _pseudoField: {fileID: 1129660525}
+  _passwordField: {fileID: 1707408302}
+  _passwordText: {fileID: 1608334758}
+  _playButton: {fileID: 981312605}
 --- !u!4 &704332788
 Transform:
   m_ObjectHideFlags: 0
@@ -1066,7 +1071,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 704332787}
         m_TargetAssemblyTypeName: MainMenuManager, Assembly-CSharp
-        m_MethodName: PlayButton_Click
+        m_MethodName: _playButton_Click
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3539,10 +3544,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game_Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 7196177217755077190, guid: c3e1a9a2a9cda4146908db02464e967f, type: 3}
-      propertyPath: menuManager
-      value: 
-      objectReference: {fileID: 11400000, guid: cadf46dcb44782d489d3d9fc75c0ac38, type: 2}
     - target: {fileID: 7196177217755077191, guid: c3e1a9a2a9cda4146908db02464e967f, type: 3}
       propertyPath: m_RootOrder
       value: 3

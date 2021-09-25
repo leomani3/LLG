@@ -206,7 +206,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822561, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: bumpRadius
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822561, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: interactKey

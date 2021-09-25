@@ -75,7 +75,8 @@ public class PlayerController : NetworkBehaviour
 
     public void Interact()
     {
-        bumpFXPoolRef.gameObjectPool.Spawn(transform.position, Quaternion.identity, transform);
+        GameObject spawnedFX = bumpFXPoolRef.gameObjectPool.Spawn(transform.position, Quaternion.identity, transform);
+        spawnedFX.transform.localScale = Vector3.one * (bumpRadius * 2);
         
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, bumpRadius, playerLayer);
         foreach (Collider2D collider in colliders)

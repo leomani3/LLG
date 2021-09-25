@@ -17,6 +17,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private KeyCode leftKey;
     [SerializeField] private KeyCode secondaryLeftKey;
     [SerializeField] private KeyCode interactKey;
+    [SerializeField] private GameobjectPoolRef bumpFXPoolRef;
 
     [Separator("Bump")]
     [SerializeField] private float ejectionForce;
@@ -74,6 +75,8 @@ public class PlayerController : NetworkBehaviour
 
     public void Interact()
     {
+        bumpFXPoolRef.gameObjectPool.Spawn(transform.position, Quaternion.identity, transform);
+        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, bumpRadius, playerLayer);
         foreach (Collider2D collider in colliders)
         {

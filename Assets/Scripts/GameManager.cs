@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,12 +20,15 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        _instance = this;
+        if (_instance is null)
+            _instance = this;
+
+        DontDestroyOnLoad(this);
     }
 
 // Data
-    private static string _ip_adress;
-    public static string ip_adress
+    private string _ip_adress;
+    public string ip_adress
     {
         get
         {
@@ -42,17 +46,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private string _password;
+    public string password
+    {
+      get
+      {
+        if (_password is null)
+        {
+          Debug.LogError("No password");
+          return "";
+        }
+
+        return _password;
+      }
+      set
+      {
+        _password = value;
+      }
+    }
+
     // Apparement cette valeur peut être obtenu dans le singleton du NetworkManager
-    private static bool _is_host;
-    public static bool is_host
+    private bool _is_host;
+    public bool is_host
     {
         get
         {
-            if (_is_host is null)
-            {
-                Debug.LogError("Host not set");
-                return false;
-            }
             return _is_host;
         }
         set
@@ -61,14 +79,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static Dictionary<int, Player> _players;
-    public static Dictionary<int, Player> players
+    private Dictionary<ulong, Player> _players;
+    public Dictionary<ulong, Player> players
     {
         get
         {
             if (_players is null)
             {
-                _players = new Dictionary<int, Player>();
+                _players = new Dictionary<ulong, Player>();
             }
 
             return _players;

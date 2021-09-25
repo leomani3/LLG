@@ -9,12 +9,6 @@ public class Player : MonoBehaviour
     {
         get
         {
-            if (_id is null)
-            {
-                Debug.LogError("Player id is null");
-                return -1;
-            }
-
             return _id;
         }
         set
@@ -31,7 +25,7 @@ public class Player : MonoBehaviour
             if (_pseudo is null)
             {
                 Debug.LogError("Player pseudo is null");
-                return -1;
+                return "";
             }
 
             return _pseudo;

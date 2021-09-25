@@ -24,7 +24,7 @@ public class PlayerController : NetworkBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         // Dans le futur, le nom sera attribué par le manager de la scène
-        // pour chaque player
+        // pour chaque player. 
         if (pseudo)
         {
             pseudo.text = ServerInfos.Pseudo;

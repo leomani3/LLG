@@ -32,11 +32,11 @@ public class PlayerController : NetworkBehaviour
         _rb = GetComponent<Rigidbody2D>();
 
         // Dans le futur, le nom sera attribué par le manager de la scène
-        // pour chaque player. 
-        if (pseudo)
-        {
-            pseudo.text = ServerInfos.Pseudo;
-        }
+        // pour chaque player.
+        //if (pseudo)
+        //{
+        //    pseudo.text = ServerInfos.Pseudo;
+        //}
     }
 
     private void Update()
@@ -55,7 +55,7 @@ public class PlayerController : NetworkBehaviour
     private void HandleMovement()
     {
         _moveVector = Vector2.zero;
-        
+
         if (Input.GetKey(playerKingBinding.right))
             _moveVector += Vector2.right * moveSpeed * Time.deltaTime;
 
@@ -64,7 +64,7 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetKeyDown(playerKingBinding.jump) && _grounded)
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        
+
         if (Input.GetKeyDown(playerKingBinding.interact))
             Interact();
     }
@@ -73,7 +73,7 @@ public class PlayerController : NetworkBehaviour
     {
         GameObject spawnedFX = bumpFXPoolRef.gameObjectPool.Spawn(transform.position, Quaternion.identity, transform);
         spawnedFX.transform.localScale = Vector3.one * (bumpRadius * 2);
-        
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, bumpRadius, playerLayer);
         foreach (Collider2D collider in colliders)
         {

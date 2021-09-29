@@ -66,8 +66,6 @@ public class ServerGameNetPortal : MonoBehaviour
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
-
-        Debug.Log("Serveur started");
     }
 
     public PlayerData? GetPlayerData(ulong clientId)
@@ -181,7 +179,6 @@ public class ServerGameNetPortal : MonoBehaviour
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
     {
-        Debug.Log("ApprovalCheck triggered");
         if (connectionData.Length > _maxConnectionPayload)
         {
             callback(false, 0, false, null, null);
@@ -218,7 +215,19 @@ public class ServerGameNetPortal : MonoBehaviour
             _clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId);
         }
 
-        callback(false, 0, true, null, null);
+        /*
+        if (gameReturnStatus == ConnectStatus.Success)
+        {
+
+        }
+        else
+        {
+        }
+        */
+
+        ulong? prefabHash = NetworkSpawnManager.GetPrefabHashFromGenerator("Player");
+
+        callback(true, prefabHash, true, null, null);
 
         _gameNetPortal.ServerToClientConnectResult(clientId, gameReturnStatus);
 
@@ -226,9 +235,6 @@ public class ServerGameNetPortal : MonoBehaviour
         {
             StartCoroutine(WaitToDisconnectClient(clientId, gameReturnStatus));
         }
-
-        Debug.Log($"Pseudo reçu {connectionPayload.playerName}");
-        Debug.Log($"GameStatus returned {gameReturnStatus}");
     }
 
     private IEnumerator WaitToDisconnectClient(ulong clientId, ConnectStatus reason)

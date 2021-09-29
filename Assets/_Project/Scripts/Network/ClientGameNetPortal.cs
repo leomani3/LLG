@@ -104,7 +104,6 @@ public class ClientGameNetPortal : MonoBehaviour
             DisconnectReason.SetDisconnectReason(status);
         }
 
-        Debug.Log("Je suis connecté");
         SceneManager.LoadScene("Lobby");
         OnConnectionFinished?.Invoke(status);
     }

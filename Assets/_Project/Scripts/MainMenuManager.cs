@@ -160,6 +160,10 @@ public class MainMenuManager : MonoBehaviour
 
             NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
             NetworkManager.Singleton.StartHost();
+
+            Player p = CreatePlayer();
+            GameManager.Instance.players.Add(p.id, p);
+
             NetworkSceneManager.SwitchScene("Lobby");
         }
         // Se connecter en tant que client
@@ -174,6 +178,10 @@ public class MainMenuManager : MonoBehaviour
             }
             if (st.Success)
             {
+                Player p = CreatePlayer();
+                GameManager.Instance.players.Add(p.id, p);
+
+                SceneManager.LoadScene(1);
                 // Envoyer le pseudo ici ou dans la connection data ?
                 // Normalement le serveur va mettre à jour le client non ?
             }
@@ -184,6 +192,14 @@ public class MainMenuManager : MonoBehaviour
         }
 
         //SceneManager.LoadScene(1);
+    }
+
+    private Player CreatePlayer()
+    {
+        Player p = new Player();
+        p.id = NetworkManager.Singleton.LocalClientId;
+        p.pseudo = _pseudoField.GetComponent<InputField>().text;
+        return p;
     }
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, MLAPI.NetworkManager.ConnectionApprovedDelegate callback)

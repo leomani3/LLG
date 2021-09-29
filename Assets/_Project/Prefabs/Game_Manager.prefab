@@ -9,9 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6920919525797671489}
-  - component: {fileID: 8931206258517768359}
   - component: {fileID: 5071935819719294582}
   - component: {fileID: 1318791222926474255}
+  - component: {fileID: 4261825699497647212}
+  - component: {fileID: 5245620699697086913}
+  - component: {fileID: 5478853187166956899}
   m_Layer: 0
   m_Name: Game_Manager
   m_TagString: Untagged
@@ -33,18 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8931206258517768359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6530200241135488514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9bd7d6c07d131f4183a8c9caea0f755, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5071935819719294582
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,8 +106,8 @@ MonoBehaviour:
   MaxConnections: 100
   MaxSentMessageQueueSize: 128
   ConnectAddress: 127.0.0.1
-  ConnectPort: 7777
-  ServerListenPort: 7777
+  ConnectPort: 13987
+  ServerListenPort: 13987
   ServerWebsocketListenPort: 8887
   SupportWebsocket: 0
   Channels: []
@@ -125,3 +115,40 @@ MonoBehaviour:
   MLAPIRelayAddress: 184.72.104.138
   MLAPIRelayPort: 8888
   MessageSendMode: 0
+--- !u!114 &4261825699497647212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530200241135488514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e0049667dd6fd459cf6aee55b71167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5245620699697086913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530200241135488514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9be8586d0c689dc4288f339ec929002f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5478853187166956899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6530200241135488514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da786c660efd5d4190a133c6112775a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxPlayers: 8

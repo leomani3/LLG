@@ -48,6 +48,7 @@ public class ServerGameNetPortal : MonoBehaviour
         _clientData = new Dictionary<string, PlayerData>();
         _clientIdToGuid = new Dictionary<ulong, string>();
         _clientSceneMap = new Dictionary<ulong, int>();
+
     }
 
     private void OnDestroy()
@@ -65,6 +66,8 @@ public class ServerGameNetPortal : MonoBehaviour
     public void StartHost()
     {
         NetworkManager.Singleton.StartHost();
+
+        Debug.Log("Serveur started");
     }
 
     public PlayerData? GetPlayerData(ulong clientId)
@@ -178,6 +181,7 @@ public class ServerGameNetPortal : MonoBehaviour
 
     private void ApprovalCheck(byte[] connectionData, ulong clientId, NetworkManager.ConnectionApprovedDelegate callback)
     {
+        Debug.Log("ApprovalCheck triggered");
         if (connectionData.Length > _maxConnectionPayload)
         {
             callback(false, 0, false, null, null);
@@ -222,6 +226,9 @@ public class ServerGameNetPortal : MonoBehaviour
         {
             StartCoroutine(WaitToDisconnectClient(clientId, gameReturnStatus));
         }
+
+        Debug.Log($"Pseudo reçu {connectionPayload.playerName}");
+        Debug.Log($"GameStatus returned {gameReturnStatus}");
     }
 
     private IEnumerator WaitToDisconnectClient(ulong clientId, ConnectStatus reason)

@@ -108,6 +108,13 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckPositionOffset: {x: 0, y: -0.5}
   gravityMulitplier: 0.4
+  playerKingBinding: {fileID: 11400000, guid: 5686041c88339df4b8ca07412e9096b2, type: 2}
+  bumpFXPoolRef: {fileID: 0}
+  ejectionForce: 0
+  bumpRadius: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   pseudo: {fileID: 0}
 --- !u!114 &216122039184146299
 MonoBehaviour:

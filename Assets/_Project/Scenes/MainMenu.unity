@@ -3344,6 +3344,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5071935819719294582, guid: 1ff4db2fd8a2c3542bd3594c2e16a6b1, type: 3}
+      propertyPath: NetworkConfig.ConnectionApproval
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6530200241135488514, guid: 1ff4db2fd8a2c3542bd3594c2e16a6b1, type: 3}
       propertyPath: m_Name
       value: Game_Manager

@@ -10,7 +10,7 @@ public class LobbyManager : MonoBehaviour
 
     private void Awake()
     {
-        PasswordText.text = GameManager.Instance.password;
+        //PasswordText.text = GameManager.Instance.password;
     }
 
     // Update is called once per frame

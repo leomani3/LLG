@@ -56,6 +56,8 @@ MonoBehaviour:
     RegisteredScenes:
     - MainMenu
     - Lobby
+    - 
+    - "L\xE9o test"
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}

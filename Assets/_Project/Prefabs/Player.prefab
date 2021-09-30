@@ -108,8 +108,8 @@ MonoBehaviour:
     m_Bits: 8
   groundCheckPositionOffset: {x: 0, y: -0.5}
   gravityMulitplier: 0.4
-  playerKingBinding: {fileID: 11400000, guid: 5686041c88339df4b8ca07412e9096b2, type: 2}
-  bumpFXPoolRef: {fileID: 0}
+  playerKeyBinding: {fileID: 11400000, guid: 5686041c88339df4b8ca07412e9096b2, type: 2}
+  bumpFXPoolRef: {fileID: 11400000, guid: b92c50fa1a9b2b346ab157d3a0f290ce, type: 2}
   ejectionForce: 0
   bumpRadius: 0
   playerLayer:

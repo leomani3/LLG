@@ -12,7 +12,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Vector2 groundCheckPositionOffset;
     [SerializeField] private float gravityMulitplier;
-    [SerializeField] private PlayerKeyBinding playerKingBinding;
+    [SerializeField] private PlayerKeyBinding playerKeyBinding;
     [SerializeField] private GameobjectPoolRef bumpFXPoolRef;
 
     [Separator("Bump")]
@@ -23,6 +23,13 @@ public class PlayerController : NetworkBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
     private bool _grounded;
+    private LevelMechanic levelMechanic;
+
+    public LevelMechanic LevelMechanic
+    {
+        get => levelMechanic;
+        set => levelMechanic = value;
+    }
 
     // Je sais pas si y'a une meilleure méthode que faire ça, sorry
     public Text pseudo;
@@ -56,39 +63,34 @@ public class PlayerController : NetworkBehaviour
     {
         _moveVector = Vector2.zero;
 
-        if (Input.GetKey(playerKingBinding.right))
+        if (Input.GetKey(playerKeyBinding.right))
             _moveVector += Vector2.right * moveSpeed * Time.deltaTime;
 
-        if (Input.GetKey(playerKingBinding.left))
+        if (Input.GetKey(playerKeyBinding.left))
             _moveVector += Vector2.left * moveSpeed * Time.deltaTime;
 
-        if (Input.GetKeyDown(playerKingBinding.jump) && _grounded)
+        if (Input.GetKeyDown(playerKeyBinding.jump) && _grounded)
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
-        if (Input.GetKeyDown(playerKingBinding.interact))
-            Interact();
-    }
-
-    public void Interact()
-    {
-        GameObject spawnedFX = bumpFXPoolRef.gameObjectPool.Spawn(transform.position, Quaternion.identity, transform);
-        spawnedFX.transform.localScale = Vector3.one * (bumpRadius * 2);
-
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, bumpRadius, playerLayer);
-        foreach (Collider2D collider in colliders)
-        {
-            PlayerController player = collider.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.Eject(player.transform.position - transform.position, ejectionForce);
-            }
-        }
+        if (Input.GetKeyDown(playerKeyBinding.interact))
+            levelMechanic.Interact();
     }
 
     public void Eject(Vector2 direction, float force)
     {
         _rb.constraints = RigidbodyConstraints2D.None;
         _rb.AddForce(direction * force, ForceMode2D.Impulse);
+    }
+
+    public void SetName(string n)
+    {
+        pseudo.text = n;
+    }
+
+    public void SetLevelMechanic(LevelMechanic levelMechanic)
+    {
+        LevelMechanic = levelMechanic;
+        LevelMechanic.assignedObject = gameObject;
     }
 
     private void GroundCheck()

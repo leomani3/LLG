@@ -348,10 +348,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 795651812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91083176b8fa77d4d9df7b6038b25708, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d430aa78695c9842ad4ef3101862312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PasswordText: {fileID: 800451891}
+  _startGameButton: {fileID: 0}
 --- !u!4 &795651814
 Transform:
   m_ObjectHideFlags: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800451889}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 

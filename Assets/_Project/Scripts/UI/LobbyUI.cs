@@ -20,7 +20,6 @@ public class LobbyUI : NetworkBehaviour
         {
             _lobbyPlayers.OnListChanged += HandleLobbyPlayersStateChanged;
         }
-
         if (IsServer)
         {
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
@@ -53,7 +52,8 @@ public class LobbyUI : NetworkBehaviour
         _lobbyPlayers.Add(new LobbyPlayerState(
             clientId,
             playerData.Value.PlayerName,
-            false
+            false,
+            playerData.Value.NumberColor
         ));
     }
 
@@ -76,7 +76,11 @@ public class LobbyUI : NetworkBehaviour
             PlayerController player = NetworkSpawnManager.GetPlayerNetworkObject(_lobbyPlayers[i].ClientId).gameObject.GetComponent<PlayerController>();
             if (player != null)
             {
-                player.SetName(_lobbyPlayers[i].PlayerName);
+                player.SetLobbyPlayerState(_lobbyPlayers[i]);
+            }
+            else
+            {
+                Debug.LogError("player empty");
             }
         }
     }

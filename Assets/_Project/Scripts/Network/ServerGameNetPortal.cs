@@ -164,7 +164,7 @@ public class ServerGameNetPortal : MonoBehaviour
         string clientGuid = Guid.NewGuid().ToString();
         string playerName = PlayerPrefs.GetString("PlayerName", "Missing Name");
 
-        _clientData.Add(clientGuid, new PlayerData(playerName, NetworkManager.Singleton.LocalClientId));
+        _clientData.Add(clientGuid, new PlayerData(playerName, NetworkManager.Singleton.LocalClientId, NextColorNumberAvailable()));
         _clientIdToGuid.Add(NetworkManager.Singleton.LocalClientId, clientGuid);
     }
 
@@ -212,7 +212,7 @@ public class ServerGameNetPortal : MonoBehaviour
         {
             _clientSceneMap[clientId] = connectionPayload.clientScene;
             _clientIdToGuid[clientId] = connectionPayload.clientGUID;
-            _clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId);
+            _clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId, NextColorNumberAvailable());
         }
 
         /*
@@ -255,5 +255,27 @@ public class ServerGameNetPortal : MonoBehaviour
         }
 
         NetworkManager.Singleton.DisconnectClient(clientId);
+    }
+
+    private int NextColorNumberAvailable()
+    {
+        List<int> existingNumber = new List<int>();
+
+        foreach (PlayerData p in _clientData.Values)
+        {
+            existingNumber.Add(p.NumberColor);
+        }
+
+        existingNumber.Sort();
+
+        for (int i = 0; i < existingNumber.Count; i++)
+        {
+            if (i != existingNumber[i])
+            {
+                return i;
+            }
+        }
+
+        return existingNumber.Count;
     }
 }

@@ -3,6 +3,7 @@ using MLAPI;
 using MyBox;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -24,6 +25,7 @@ public class PlayerController : NetworkBehaviour
     private Vector2 _moveVector;
     private bool _grounded;
     private LevelMechanic levelMechanic;
+    private LobbyPlayerState _lobbyPlayerState;
 
     public LevelMechanic LevelMechanic
     {
@@ -31,8 +33,8 @@ public class PlayerController : NetworkBehaviour
         set => levelMechanic = value;
     }
 
-    // Je sais pas si y'a une meilleure méthode que faire ça, sorry
-    public Text pseudo;
+    [Header("References")]
+    [SerializeField] private TMP_Text pseudoText;
 
     private void Awake()
     {
@@ -82,9 +84,21 @@ public class PlayerController : NetworkBehaviour
         _rb.AddForce(direction * force, ForceMode2D.Impulse);
     }
 
+    public void SetLobbyPlayerState(LobbyPlayerState lps)
+    {
+        _lobbyPlayerState = lps;
+        UpdatePlayer();
+    }
+
+    private void UpdatePlayer()
+    {
+        pseudoText.text = _lobbyPlayerState.PlayerName;
+        GetComponent<Renderer>().material.color = GetColorFromNumber(_lobbyPlayerState.NumberColor);
+    }
+
     public void SetName(string n)
     {
-        pseudo.text = n;
+        pseudoText.text = n;
     }
 
     public void SetLevelMechanic(LevelMechanic levelMechanic)
@@ -104,5 +118,30 @@ public class PlayerController : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawSphere(transform.position.ToVector2() + groundCheckPositionOffset, groundCheckRadius);
+    }
+
+    // A déplacer dans les settings et à mettre en static
+    private Color GetColorFromNumber(int i)
+    {
+        switch(i)
+        {
+            default:
+            case 0:
+                return Color.black;
+            case 1:
+                return Color.blue;
+            case 2:
+                return Color.cyan;
+            case 3:
+                return Color.green;
+            case 4:
+                return Color.magenta;
+            case 5:
+                return Color.red;
+            case 6:
+                return Color.white;
+            case 7:
+                return Color.yellow;
+        }
     }
 }

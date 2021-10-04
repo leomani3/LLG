@@ -229,9 +229,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36d461f92c813884e897a10cadff3c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelMechanic: {fileID: 11400000, guid: 6829d762ec5660e4f923d360822133c5, type: 2}
   players:
   - {fileID: 375713604}
+  levelMechanicType: 0
 --- !u!4 &423475125
 Transform:
   m_ObjectHideFlags: 0
@@ -244,7 +244,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &522402885
 PrefabInstance:
@@ -295,7 +295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822563, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822563, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -733,7 +733,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1931021359
 MonoBehaviour:

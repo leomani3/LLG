@@ -24,14 +24,8 @@ public class PlayerController : NetworkBehaviour
     private Rigidbody2D _rb;
     private Vector2 _moveVector;
     private bool _grounded;
-    private LevelMechanic levelMechanic;
     private LobbyPlayerState _lobbyPlayerState;
-
-    public LevelMechanic LevelMechanic
-    {
-        get => levelMechanic;
-        set => levelMechanic = value;
-    }
+    private ILevelMechanic _levelMechanic;
 
     [Header("References")]
     [SerializeField] private TMP_Text pseudoText;
@@ -55,6 +49,11 @@ public class PlayerController : NetworkBehaviour
         HandleMovement();
     }
 
+    public void Interact()
+    {
+
+    }
+
     private void FixedUpdate()
     {
         _rb.AddForce(new Vector2(_moveVector.x, 0), ForceMode2D.Force);
@@ -75,7 +74,7 @@ public class PlayerController : NetworkBehaviour
             _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
 
         if (Input.GetKeyDown(playerKeyBinding.interact))
-            levelMechanic.Interact();
+            _levelMechanic.Interact();
     }
 
     public void Eject(Vector2 direction, float force)
@@ -96,15 +95,14 @@ public class PlayerController : NetworkBehaviour
         GetComponent<Renderer>().material.color = GetColorFromNumber(_lobbyPlayerState.NumberColor);
     }
 
+    public void SetLevelMechanic(ILevelMechanic levelMechanic)
+    {
+        _levelMechanic = levelMechanic;
+    }
+
     public void SetName(string n)
     {
         pseudoText.text = n;
-    }
-
-    public void SetLevelMechanic(LevelMechanic levelMechanic)
-    {
-        LevelMechanic = levelMechanic;
-        LevelMechanic.assignedObject = gameObject;
     }
 
     private void GroundCheck()

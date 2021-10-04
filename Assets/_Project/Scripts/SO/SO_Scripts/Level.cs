@@ -1,16 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField] private LevelMechanic levelMechanic;
     [SerializeField] private List<PlayerController> players;
+    [SerializeField] private LevelMechanicType levelMechanicType;
+
+    [SerializeField] private ILevelMechanic _levelMechanic;
 
     private void Awake()
     {
         foreach (PlayerController playerController in players)
         {
-            playerController.SetLevelMechanic(levelMechanic);
+            _levelMechanic = LevelMechanicFactory.Create(LevelMechanicType.Bump, playerController.gameObject);
+            playerController.SetLevelMechanic(_levelMechanic);
         }
     }
 }

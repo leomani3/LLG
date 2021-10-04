@@ -18,7 +18,7 @@ public abstract class LevelManager : NetworkBehaviour
 
 
     // Fonction qui va vérifier si les conditions sont bonnes pour valider le niveau
-    private abstract bool ConditionsAreMet();
+    public abstract bool ConditionsAreMet();
 
 
     // Cette fonction initie un NetworkObject sur le GameObject s'il n'en possède pas
@@ -55,8 +55,8 @@ public abstract class LevelManager : NetworkBehaviour
 
     private void OnDestroy()
     {
-        _levelStateObjects.OnListChanged -= HandleLobbyPlayersStateChanged;
-
+        _levelStateObjects.OnListChanged -= HandleLevelStateObjectsChanged;
+    
         if (NetworkManager.Singleton)
         {
             NetworkManager.Singleton.OnClientConnectedCallback -= HandleClientConnected;

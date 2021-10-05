@@ -49,12 +49,21 @@ public class LobbyUI : NetworkBehaviour
 
         if (!playerData.HasValue) { return; }
 
-        _lobbyPlayers.Add(new LobbyPlayerState(
+        LobbyPlayerState lps = new LobbyPlayerState(
             clientId,
             playerData.Value.PlayerName,
             false,
             playerData.Value.NumberColor
-        ));
+        );
+
+        _lobbyPlayers.Add(lps);
+
+        GameObject go = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject;
+        PlayerController pc = go.GetComponent<PlayerController>();
+        if (pc != null)
+        {
+            pc.SetLobbyPlayerState(lps);
+        }
     }
 
     private void HandleClientDisconnect(ulong clientId)
@@ -71,6 +80,7 @@ public class LobbyUI : NetworkBehaviour
 
     private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
     {
+        /*
         for (int i = 0; i < _lobbyPlayers.Count; i++)
         {
             PlayerController player = NetworkSpawnManager.GetPlayerNetworkObject(_lobbyPlayers[i].ClientId).gameObject.GetComponent<PlayerController>();
@@ -83,5 +93,6 @@ public class LobbyUI : NetworkBehaviour
                 Debug.LogError("player empty");
             }
         }
+        */
     }
 }

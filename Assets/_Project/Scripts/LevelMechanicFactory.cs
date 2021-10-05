@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum LevelMechanicType{Bump}
+public enum LevelMechanicType{Bump, Grapple}
 public static class LevelMechanicFactory
 {
     public static void Create(LevelMechanicType levelMechanicType, PlayerController playerToAssignTo, LevelMechanicData mechanicData)
@@ -9,7 +9,6 @@ public static class LevelMechanicFactory
         {
             case LevelMechanicType.Bump :
                 BumpLevelMechanic bumpLevelMechanic = playerToAssignTo.gameObject.AddComponent<BumpLevelMechanic>();
-                bumpLevelMechanic.AssigneObject = playerToAssignTo.gameObject;
 
                 bumpLevelMechanic.bumpForce = mechanicData.bumpForce;
                 bumpLevelMechanic.bumpLayers = mechanicData.bumpLayers;
@@ -17,6 +16,11 @@ public static class LevelMechanicFactory
                 bumpLevelMechanic.bumpFXPoolRef = mechanicData.bumpFXPoolRef;
                 
                 playerToAssignTo.SetLevelMechanic(bumpLevelMechanic);
+                break;
+            case LevelMechanicType.Grapple :
+                GrappleLevelMechanic grappleLevelMechanic = playerToAssignTo.gameObject.AddComponent<GrappleLevelMechanic>();
+                
+                playerToAssignTo.SetLevelMechanic(grappleLevelMechanic);
                 break;
             default:
                 break;

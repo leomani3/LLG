@@ -85,7 +85,7 @@ public class LobbyUI : NetworkBehaviour
             LobbyPlayerState lps = _lobbyPlayers[i];
             if (NetworkManager.Singleton.ConnectedClients.ContainsKey(lps.ClientId))
             {
-                GameObject go = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject;
+                GameObject go = NetworkManager.Singleton.ConnectedClients[lps.ClientId].PlayerObject.gameObject;
 
                 if (go == null)
                 {

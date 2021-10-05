@@ -80,19 +80,34 @@ public class LobbyUI : NetworkBehaviour
 
     private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
     {
-        /*
         for (int i = 0; i < _lobbyPlayers.Count; i++)
         {
-            PlayerController player = NetworkSpawnManager.GetPlayerNetworkObject(_lobbyPlayers[i].ClientId).gameObject.GetComponent<PlayerController>();
-            if (player != null)
+            LobbyPlayerState lps = _lobbyPlayers[i];
+            if (NetworkManager.Singleton.ConnectedClients.ContainsKey(lps.ClientId))
             {
-                player.SetLobbyPlayerState(_lobbyPlayers[i]);
+                GameObject go = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject;
+
+                if (go == null)
+                {
+                    Debug.LogError("GameObject null");
+                    continue;
+                }
+
+                PlayerController pc = go.GetComponent<PlayerController>();
+
+                if (pc != null)
+                {
+                    pc.SetLobbyPlayerState(lps);
+                }
+                else
+                {
+                    Debug.LogError("Player vide");
+                }
             }
             else
             {
-                Debug.LogError("player empty");
+                Debug.LogError("Player dans lobbyPlayer mais pas dans NetworkManager");
             }
         }
-        */
     }
 }

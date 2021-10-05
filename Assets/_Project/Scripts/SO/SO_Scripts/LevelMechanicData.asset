@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e74fa6bb474ca4eb793dee39308a04, type: 3}
+  m_Name: LevelMechanicData
+  m_EditorClassIdentifier: 
+  bumpFXPoolRef: {fileID: 11400000, guid: b92c50fa1a9b2b346ab157d3a0f290ce, type: 2}
+  bumpLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  bumpRadius: 2
+  bumpForce: 50

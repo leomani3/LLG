@@ -37,7 +37,7 @@ public class MainMenuUI : MonoBehaviour
             PlayerPrefs.SetString("IpAdress", _adresseIpInputField.text);
 
             // Start du client
-            ClientGameNetPortal.Instance.StartClient();
+            ClientGameNetPortal.Instance.StartClient(); 
         }
         else
         {

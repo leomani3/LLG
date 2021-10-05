@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class BumpLevelMechanic : ILevelMechanic
+public class BumpLevelMechanic : MonoBehaviour, ILevelMechanic
 {
-    [SerializeField] private GameobjectPoolRef bumpFXPoolRef;
-    [SerializeField] private LayerMask bumpLayers;
-    [SerializeField] private float bumpRadius;
-    [SerializeField] private float bumpForce;
+    public GameobjectPoolRef bumpFXPoolRef;
+    public LayerMask bumpLayers;
+    public float bumpRadius;
+    public float bumpForce;
 
     private GameObject _assigneObject;
 

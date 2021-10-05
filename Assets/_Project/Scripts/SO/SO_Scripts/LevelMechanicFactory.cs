@@ -3,18 +3,22 @@ using UnityEngine;
 public enum LevelMechanicType{Bump}
 public static class LevelMechanicFactory
 {
-    public static ILevelMechanic Create(LevelMechanicType levelMechanicType, GameObject assignedGameobject)
+    public static void Create(LevelMechanicType levelMechanicType, PlayerController playerToAssignTo, LevelMechanicData mechanicData)
     {
         switch (levelMechanicType)
         {
             case LevelMechanicType.Bump :
-                BumpLevelMechanic bumpLevelMechanic = new BumpLevelMechanic();
-                bumpLevelMechanic.AssigneObject = assignedGameobject;
+                BumpLevelMechanic bumpLevelMechanic = playerToAssignTo.gameObject.AddComponent<BumpLevelMechanic>();
+                bumpLevelMechanic.AssigneObject = playerToAssignTo.gameObject;
+
+                bumpLevelMechanic.bumpForce = mechanicData.bumpForce;
+                bumpLevelMechanic.bumpLayers = mechanicData.bumpLayers;
+                bumpLevelMechanic.bumpRadius = mechanicData.bumpRadius;
+                bumpLevelMechanic.bumpFXPoolRef = mechanicData.bumpFXPoolRef;
                 
-                return bumpLevelMechanic;
+                playerToAssignTo.SetLevelMechanic(bumpLevelMechanic);
                 break;
             default:
-                return new BumpLevelMechanic();
                 break;
         }
     }

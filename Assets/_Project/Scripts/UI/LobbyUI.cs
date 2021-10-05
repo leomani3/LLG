@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using MLAPI;
 using MLAPI.Connection;
 using MLAPI.Messaging;
@@ -58,12 +59,14 @@ public class LobbyUI : NetworkBehaviour
 
         _lobbyPlayers.Add(lps);
 
+        /*
         GameObject go = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject;
         PlayerController pc = go.GetComponent<PlayerController>();
         if (pc != null)
         {
             pc.SetLobbyPlayerState(lps);
         }
+        */
     }
 
     private void HandleClientDisconnect(ulong clientId)
@@ -80,9 +83,22 @@ public class LobbyUI : NetworkBehaviour
 
     private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
     {
+        PlayerController[] lpc = FindObjectsOfType<PlayerController>();
+
         for (int i = 0; i < _lobbyPlayers.Count; i++)
         {
             LobbyPlayerState lps = _lobbyPlayers[i];
+
+            foreach (PlayerController pc in lpc)
+            {
+                NetworkObject no = pc.GetComponent<NetworkObject>();
+                if (no.OwnerClientId == lps.ClientId)
+                {
+                    pc.SetLobbyPlayerState(lps);
+                }
+            }
+
+            /*
             if (NetworkManager.Singleton.ConnectedClients.ContainsKey(lps.ClientId))
             {
                 GameObject go = NetworkManager.Singleton.ConnectedClients[lps.ClientId].PlayerObject.gameObject;
@@ -108,6 +124,7 @@ public class LobbyUI : NetworkBehaviour
             {
                 Debug.LogError("Player dans lobbyPlayer mais pas dans NetworkManager");
             }
+            */
         }
     }
 }

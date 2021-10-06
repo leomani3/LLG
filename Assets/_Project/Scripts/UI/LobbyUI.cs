@@ -11,7 +11,8 @@ using UnityEngine.UI;
 public class LobbyUI : NetworkBehaviour
 {
     [Header("References")]
-    [SerializeField] private Button _startGameButton;
+    [SerializeField] private Button startGameButton;
+    [SerializeField] private GameObject playerPrefab;
     //
     private NetworkList<LobbyPlayerState> _lobbyPlayers = new NetworkList<LobbyPlayerState>();
 
@@ -49,6 +50,14 @@ public class LobbyUI : NetworkBehaviour
         var playerData = ServerGameNetPortal.Instance.GetPlayerData(clientId);
 
         if (!playerData.HasValue) { return; }
+
+        if (playerPrefab == null)
+        {
+            Debug.LogError("Player prefab not assigned");
+            return;
+        }
+
+        playerPrefab.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
 
         LobbyPlayerState lps = new LobbyPlayerState(
             clientId,

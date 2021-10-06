@@ -61,4 +61,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d430aa78695c9842ad4ef3101862312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startGameButton: {fileID: 0}
+  startGameButton: {fileID: 0}
+  playerPrefab: {fileID: 1841465173519822566, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}

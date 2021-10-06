@@ -59,14 +59,7 @@ public class LobbyUI : NetworkBehaviour
 
         _lobbyPlayers.Add(lps);
 
-        /*
-        GameObject go = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.gameObject;
-        PlayerController pc = go.GetComponent<PlayerController>();
-        if (pc != null)
-        {
-            pc.SetLobbyPlayerState(lps);
-        }
-        */
+
     }
 
     private void HandleClientDisconnect(ulong clientId)

@@ -214,22 +214,12 @@ public class ServerGameNetPortal : MonoBehaviour
             _clientIdToGuid[clientId] = connectionPayload.clientGUID;
             _clientData[connectionPayload.clientGUID] = new PlayerData(connectionPayload.playerName, clientId, NextColorNumberAvailable());
         }
-
-        /*
-        if (gameReturnStatus == ConnectStatus.Success)
-        {
-
-        }
-        else
-        {
-        }
-        */
+        
+        _gameNetPortal.ServerToClientConnectResult(clientId, gameReturnStatus);
 
         ulong? prefabHash = NetworkSpawnManager.GetPrefabHashFromGenerator("Player");
 
         callback(true, prefabHash, true, null, null);
-
-        _gameNetPortal.ServerToClientConnectResult(clientId, gameReturnStatus);
 
         if (gameReturnStatus != ConnectStatus.Success)
         {

@@ -57,7 +57,7 @@ public class LobbyUI : NetworkBehaviour
             return;
         }
 
-        playerPrefab.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
+        SpawnPlayerObject(clientId);
 
         LobbyPlayerState lps = new LobbyPlayerState(
             clientId,
@@ -67,8 +67,6 @@ public class LobbyUI : NetworkBehaviour
         );
 
         _lobbyPlayers.Add(lps);
-
-
     }
 
     private void HandleClientDisconnect(ulong clientId)
@@ -99,34 +97,19 @@ public class LobbyUI : NetworkBehaviour
                     pc.SetLobbyPlayerState(lps);
                 }
             }
-
-            /*
-            if (NetworkManager.Singleton.ConnectedClients.ContainsKey(lps.ClientId))
-            {
-                GameObject go = NetworkManager.Singleton.ConnectedClients[lps.ClientId].PlayerObject.gameObject;
-
-                if (go == null)
-                {
-                    Debug.LogError("GameObject null");
-                    continue;
-                }
-
-                PlayerController pc = go.GetComponent<PlayerController>();
-
-                if (pc != null)
-                {
-                    pc.SetLobbyPlayerState(lps);
-                }
-                else
-                {
-                    Debug.LogError("Player vide");
-                }
-            }
-            else
-            {
-                Debug.LogError("Player dans lobbyPlayer mais pas dans NetworkManager");
-            }
-            */
         }
+    }
+
+    private void SpawnPlayerObject(ulong clientId)
+    {
+        PlayerController[] lpc = FindObjectsOfType<PlayerController>();
+
+        for (int i = 0; i < lpc.Length; i++)
+        {
+            if (lpc[i].GetComponent<NetworkObject>().OwnerClientId == clientId) { return; }
+        }
+
+        GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
+        go.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
     }
 }

@@ -8,4 +8,6 @@ public class LevelMechanicData : ScriptableObject
     public LayerMask bumpLayers;
     public float bumpRadius;
     public float bumpForce;
+
+    public LayerMask grappleLayerMask;
 }

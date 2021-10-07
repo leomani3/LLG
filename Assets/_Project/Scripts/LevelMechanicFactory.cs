@@ -19,6 +19,8 @@ public static class LevelMechanicFactory
                 break;
             case LevelMechanicType.Grapple :
                 GrappleLevelMechanic grappleLevelMechanic = playerToAssignTo.gameObject.AddComponent<GrappleLevelMechanic>();
+
+                grappleLevelMechanic.layerMask = mechanicData.grappleLayerMask;
                 
                 playerToAssignTo.SetLevelMechanic(grappleLevelMechanic);
                 break;

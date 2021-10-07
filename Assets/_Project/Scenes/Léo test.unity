@@ -300,11 +300,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822563, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1160386
+      value: -6.59
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822563, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.4988696
+      value: 4.47
       objectReference: {fileID: 0}
     - target: {fileID: 1841465173519822563, guid: 45e58da595202a147ad22eb23c4f0bcb, type: 3}
       propertyPath: m_LocalPosition.z
@@ -581,7 +581,8 @@ GameObject:
   - component: {fileID: 1898749832}
   - component: {fileID: 1898749831}
   - component: {fileID: 1898749830}
-  m_Layer: 0
+  - component: {fileID: 1898749834}
+  m_Layer: 7
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,6 +680,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!50 &1898749834
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898749829}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1931021356
 GameObject:
   m_ObjectHideFlags: 0

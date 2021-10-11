@@ -21,11 +21,13 @@ public static class LevelMechanicFactory
                 GrappleLevelMechanic grappleLevelMechanic = playerToAssignTo.gameObject.AddComponent<GrappleLevelMechanic>();
 
                 grappleLevelMechanic.layerMask = mechanicData.grappleLayerMask;
+                grappleLevelMechanic.lineWidth = mechanicData.grappleLineWidth;
+                grappleLevelMechanic.grappleMinLength = mechanicData.grappleMinLength;
                 
                 playerToAssignTo.SetLevelMechanic(grappleLevelMechanic);
                 break;
             default:
-                break;
+                break;  
         }
     }
 }

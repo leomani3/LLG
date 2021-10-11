@@ -10,4 +10,6 @@ public class LevelMechanicData : ScriptableObject
     public float bumpForce;
 
     public LayerMask grappleLayerMask;
+    public float grappleMinLength;
+    public float grappleLineWidth;
 }

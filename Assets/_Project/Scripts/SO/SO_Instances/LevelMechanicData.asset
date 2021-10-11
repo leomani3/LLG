@@ -21,3 +21,5 @@ MonoBehaviour:
   grappleLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  grappleMinLength: 3
+  grappleLineWidth: 0

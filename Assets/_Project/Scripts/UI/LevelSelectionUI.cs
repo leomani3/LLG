@@ -17,6 +17,8 @@ public class LevelSelectionUI : NetworkBehaviour
     [SerializeField] private GameObject levelsContainerPanel;
 
     private int _pageNumber = 0;
+    private int _highestLevelCleared = 0;
+    private NetworkList<AvailableLevelState> _availableLevelsState;
 
     public void Awake()
     {
@@ -32,6 +34,7 @@ public class LevelSelectionUI : NetworkBehaviour
     {
         if (IsClient)
         {
+            _availableLevelsState.OnListChanged += AvailableLevelStateChanged;
         }
         if (IsServer)
         {
@@ -43,19 +46,17 @@ public class LevelSelectionUI : NetworkBehaviour
     [ServerRpc(RequireOwnership = true)]
     private void NextPanelServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        DestroyChildrenPanel();
         _pageNumber++;
-
         UpdateButton();
+        InstantiateAvailableLevelState();
     }
     
     [ServerRpc(RequireOwnership = true)]
     private void PreviousPanelServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        DestroyChildrenPanel();
         _pageNumber--;
-
         UpdateButton();
+        InstantiateAvailableLevelState();
     }
 
     private void DestroyChildrenPanel()
@@ -63,6 +64,17 @@ public class LevelSelectionUI : NetworkBehaviour
         while (levelsContainerPanel.transform.childCount > 0)
         {
             Destroy(levelsContainerPanel.transform.GetChild(0).gameObject);
+        }
+    }
+
+    private void InstantiateAvailableLevelState()
+    {
+        _availableLevelsState.Clear();
+
+        for (int i = _pageNumber * 8 + 1; i <= (_pageNumber + 1) * 8; i++)
+        {
+            AvailableLevelState als = new AvailableLevelState(i, i + 1 <= _highestLevelCleared);
+            _availableLevelsState.Add(als);
         }
     }
 
@@ -88,4 +100,27 @@ public class LevelSelectionUI : NetworkBehaviour
         }
     }
 
+    private void AvailableLevelStateChanged(NetworkListEvent<AvailableLevelState> alState)
+    {
+        DestroyChildrenPanel();
+
+        //Instantie les boutons de selection de niveau quand création de niveaux
+        foreach (AvailableLevelState als in _availableLevelsState)
+        {
+            // Je me suis un peu emballé, ça va dans ALSC
+            GameObject go = Instantiate(levelSelectionPrefab);
+            LevelSelectButton lsb = go.GetComponent<LevelSelectButton>();
+
+            if (lsb == null)
+            {
+                Debug.LogError("Button Level Selector prefab not references, probably");
+            }
+            else
+            {
+                lsb.SetText(als.LevelNumber.ToString());
+                lsb.SetAvailable(als.IsAvailable);
+                lsb.SetDone(als.IsDone);
+            }
+        }
+    }
 }

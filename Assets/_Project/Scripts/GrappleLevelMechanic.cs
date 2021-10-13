@@ -10,6 +10,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
     public float grapplePullingSpeed;
     public LayerMask layerMask;
     public float lineWidth;
+    public Material lineMaterial;
 
     private bool _connected;
     private Vector3 _worldMousePos;
@@ -26,7 +27,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
 
     private void Update()
     {
-        if (_connected)
+        if (_connected && _lineRenderer != null)
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, _raycastHit.point);
@@ -49,13 +50,15 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
                     _lineRenderer = gameObject.AddComponent<LineRenderer>();
                 _lineRenderer.positionCount = 2;
                 _lineRenderer.widthMultiplier = 0.1f;
-                
+                _lineRenderer.material = lineMaterial;
+
                 _objectConnectedTo = _raycastHit.collider.gameObject;
                 HingeJoint2D hingeJoint = _objectConnectedTo.GetComponent<HingeJoint2D>();
                 if (hingeJoint == null)
                     hingeJoint = _raycastHit.collider.gameObject.AddComponent<HingeJoint2D>();
      
                 hingeJoint.connectedBody = GetComponent<Rigidbody2D>();
+                hingeJoint.enableCollision = true;
 
                 hingeJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_raycastHit.point);
                 _moveTween = transform.DOMove((_raycastHit.point + (transform.position.ToVector2() - _raycastHit.point).normalized * grappleMinLength), 0.5f);

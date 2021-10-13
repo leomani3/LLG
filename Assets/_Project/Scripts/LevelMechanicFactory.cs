@@ -23,6 +23,7 @@ public static class LevelMechanicFactory
                 grappleLevelMechanic.layerMask = mechanicData.grappleLayerMask;
                 grappleLevelMechanic.lineWidth = mechanicData.grappleLineWidth;
                 grappleLevelMechanic.grappleMinLength = mechanicData.grappleMinLength;
+                grappleLevelMechanic.lineMaterial = mechanicData.grappleLineMaterial;
                 
                 playerToAssignTo.SetLevelMechanic(grappleLevelMechanic);
                 break;

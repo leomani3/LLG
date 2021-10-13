@@ -23,3 +23,4 @@ MonoBehaviour:
     m_Bits: 128
   grappleMinLength: 3
   grappleLineWidth: 0
+  grappleLineMaterial: {fileID: 2100000, guid: 6c9fde8b6c9a4c14da4778859571a6eb, type: 2}

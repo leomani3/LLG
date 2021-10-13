@@ -12,4 +12,5 @@ public class LevelMechanicData : ScriptableObject
     public LayerMask grappleLayerMask;
     public float grappleMinLength;
     public float grappleLineWidth;
+    public Material grappleLineMaterial;
 }

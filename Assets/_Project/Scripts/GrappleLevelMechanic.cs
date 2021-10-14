@@ -19,10 +19,12 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
     private GameObject _objectConnectedTo;
     private Tween _moveTween;
     private LineRenderer _lineRenderer;
+    private Rigidbody2D _rigidbody;
 
     private void Awake()
     {
         _mainCam = Camera.main;
+        _rigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -31,6 +33,8 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
         {
             _lineRenderer.SetPosition(0, transform.position);
             _lineRenderer.SetPosition(1, _raycastHit.point);
+            
+            _rigidbody.AddForce((_raycastHit.point - transform.position.ToVector2()) * 10, ForceMode2D.Force);
         }
     }
 
@@ -52,7 +56,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
                 _lineRenderer.widthMultiplier = 0.1f;
                 _lineRenderer.material = lineMaterial;
 
-                _objectConnectedTo = _raycastHit.collider.gameObject;
+                /*_objectConnectedTo = _raycastHit.collider.gameObject;
                 HingeJoint2D hingeJoint = _objectConnectedTo.GetComponent<HingeJoint2D>();
                 if (hingeJoint == null)
                     hingeJoint = _raycastHit.collider.gameObject.AddComponent<HingeJoint2D>();
@@ -61,7 +65,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
                 hingeJoint.enableCollision = true;
 
                 hingeJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_raycastHit.point);
-                _moveTween = transform.DOMove((_raycastHit.point + (transform.position.ToVector2() - _raycastHit.point).normalized * grappleMinLength), 0.5f);
+                _moveTween = transform.DOMove((_raycastHit.point + (transform.position.ToVector2() - _raycastHit.point).normalized * grappleMinLength), 0.5f);*/
             }
         }
         else

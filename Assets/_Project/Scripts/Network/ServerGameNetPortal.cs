@@ -103,6 +103,11 @@ public class ServerGameNetPortal : MonoBehaviour
         // NetworkSceneManager.SwitchScene("Level Selection");
     }
 
+    public void LoadLevel(int levelNumber)
+    {
+        NetworkSceneManager.SwitchScene("Level " + levelNumber.ToString());
+    }
+
     private void HandleNetworkReadied()
     {
         if (!NetworkManager.Singleton.IsServer) { return; }

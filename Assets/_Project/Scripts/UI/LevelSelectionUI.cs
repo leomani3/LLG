@@ -40,10 +40,12 @@ public class LevelSelectionUI : NetworkBehaviour
         {
             previousButton.gameObject.SetActive(true);
             nextButton.gameObject.SetActive(true);
+
+            InstantiateAvailableLevelState();
         }
     }
 
-    [ServerRpc(RequireOwnership = true)]
+    [ServerRpc(RequireOwnership = false)]
     private void NextPanelServerRpc(ServerRpcParams serverRpcParams = default)
     {
         _pageNumber++;
@@ -51,12 +53,18 @@ public class LevelSelectionUI : NetworkBehaviour
         InstantiateAvailableLevelState();
     }
     
-    [ServerRpc(RequireOwnership = true)]
+    [ServerRpc(RequireOwnership = false)]
     private void PreviousPanelServerRpc(ServerRpcParams serverRpcParams = default)
     {
         _pageNumber--;
         UpdateButton();
         InstantiateAvailableLevelState();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeSceneOnButtonPressedServerRpc(int sceneNumber, ServerRpcParams serverRpcParams = default)
+    {
+        ServerGameNetPortal.Instance.LoadLevel(sceneNumber);
     }
 
     private void DestroyChildrenPanel()
@@ -120,7 +128,27 @@ public class LevelSelectionUI : NetworkBehaviour
                 lsb.SetText(als.LevelNumber.ToString());
                 lsb.SetAvailable(als.IsAvailable);
                 lsb.SetDone(als.IsDone);
+
+                Button b = lsb.GetComponent<Button>();
+                if (b == null)
+                {
+                    Debug.LogError("Pas de button oops");
+                }
+                else
+                {
+                    b.onClick.AddListener(delegate {ChangeSceneOnButtonPressedServerRpc(als.LevelNumber); });
+                }
             }
         }
+    }
+
+    public void PreviousButtonClicked()
+    {
+        PreviousPanelServerRpc();
+    }
+
+    public void NextButtonClicked()
+    {
+        NextPanelServerRpc();
     }
 }

@@ -553,7 +553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1503343597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1146,5 +1146,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobbyManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4871029862405000167, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}
+      propertyPath: startGameButton
+      value: 
+      objectReference: {fileID: 1503343598}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}

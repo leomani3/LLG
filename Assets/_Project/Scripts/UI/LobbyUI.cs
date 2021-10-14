@@ -7,12 +7,14 @@ using MLAPI.Spawning;
 using MLAPI.NetworkVariable.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class LobbyUI : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Button startGameButton;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private TMP_Text playerReadyText;
     //
     private NetworkList<LobbyPlayerState> _lobbyPlayers = new NetworkList<LobbyPlayerState>();
 
@@ -26,6 +28,8 @@ public class LobbyUI : NetworkBehaviour
         {
             NetworkManager.Singleton.OnClientConnectedCallback += HandleClientConnected;
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleClientDisconnect;
+
+            startGameButton.gameObject.SetActive(true);
 
             foreach(NetworkClient client in NetworkManager.Singleton.ConnectedClientsList)
             {
@@ -98,6 +102,13 @@ public class LobbyUI : NetworkBehaviour
                 }
             }
         }
+
+        playerReadyText.text = NumberPlayerReady().ToString() + "/" + _lobbyPlayers.Count.ToString();
+
+        if (IsHost)
+        {
+            startGameButton.interactable = IsEveryoneReady();
+        }
     }
 
     private void SpawnPlayerObject(ulong clientId)
@@ -111,5 +122,63 @@ public class LobbyUI : NetworkBehaviour
 
         GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         go.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ToggleReadyServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        for (int i = 0; i < _lobbyPlayers.Count; i++)
+        {
+            if (_lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId)
+            {
+                _lobbyPlayers[i] = new LobbyPlayerState(
+                    _lobbyPlayers[i].ClientId,
+                    _lobbyPlayers[i].PlayerName,
+                    !_lobbyPlayers[i].IsReady,
+                    _lobbyPlayers[i].NumberColor
+                );
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void StartGameServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        if (serverRpcParams.Receive.SenderClientId != NetworkManager.Singleton.LocalClientId) { return; }
+
+        if (!IsEveryoneReady()) { return; }
+
+        ServerGameNetPortal.Instance.StartGame();
+    }
+
+    public void OnReadySelected()
+    {
+        ToggleReadyServerRpc();
+    }
+
+    public void OnStartGameClicked()
+    {
+        StartGameServerRpc();
+    }
+
+    private bool IsEveryoneReady()
+    {
+        if (_lobbyPlayers.Count < 2) { return false; }
+
+        if (NumberPlayerReady() != _lobbyPlayers.Count) { return false; }
+
+        return true;
+    }
+
+    private int NumberPlayerReady()
+    {
+        int i = 0;
+
+        foreach (LobbyPlayerState lps in _lobbyPlayers)
+        {
+            if (lps.IsReady) { i++; }
+        }
+
+        return i;
     }
 }

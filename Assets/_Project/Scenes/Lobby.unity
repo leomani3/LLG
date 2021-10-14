@@ -1147,6 +1147,10 @@ PrefabInstance:
       value: LobbyManager
       objectReference: {fileID: 0}
     - target: {fileID: 4871029862405000167, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}
+      propertyPath: playerReadyText
+      value: 
+      objectReference: {fileID: 1630838973}
+    - target: {fileID: 4871029862405000167, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}
       propertyPath: startGameButton
       value: 
       objectReference: {fileID: 1503343598}

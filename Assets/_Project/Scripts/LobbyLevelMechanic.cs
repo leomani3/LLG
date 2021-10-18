@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class LobbyLevelMechanic : MonoBehaviour, ILevelMechanic
 {
-    [SerializeField] private LevelSelectionUI levelSelectionUI;
+    private LobbyUI _lobbyUI;
 
     public void Interact()
     {
-        
+        _lobbyUI.OnReadySelected();
     }
 
     void Awake()
     {
+        _lobbyUI = FindObjectOfType<LobbyUI>();
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (_lobbyUI == null)
+        {
+            Debug.LogError("C'est cheum ça, LobbyLevelMechanic ne trouve pas LobbyUI");
+        }
     }
 }

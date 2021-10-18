@@ -128,16 +128,7 @@ public class LevelSelectionUI : NetworkBehaviour
                 lsb.SetText(als.LevelNumber.ToString());
                 lsb.SetAvailable(als.IsAvailable);
                 lsb.SetDone(als.IsDone);
-
-                Button b = lsb.GetComponent<Button>();
-                if (b == null)
-                {
-                    Debug.LogError("Pas de button oops");
-                }
-                else
-                {
-                    b.onClick.AddListener(delegate {ChangeSceneOnButtonPressedServerRpc(als.LevelNumber); });
-                }
+                lsb.SetUI(this);
             }
         }
     }

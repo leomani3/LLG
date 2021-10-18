@@ -122,6 +122,9 @@ public class LobbyUI : NetworkBehaviour
 
         GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         go.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
+
+        PlayerController pc = go.GetComponent<PlayerController>();
+        LevelMechanicFactory.Create(LevelMechanicType.Lobby, pc, null);
     }
 
     [ServerRpc(RequireOwnership = false)]

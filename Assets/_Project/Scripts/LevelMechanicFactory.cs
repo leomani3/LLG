@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum LevelMechanicType{Bump, Grapple}
+public enum LevelMechanicType{Bump, Grapple, Lobby}
 public static class LevelMechanicFactory
 {
     public static void Create(LevelMechanicType levelMechanicType, PlayerController playerToAssignTo, LevelMechanicData mechanicData)
@@ -26,6 +26,11 @@ public static class LevelMechanicFactory
                 grappleLevelMechanic.lineMaterial = mechanicData.grappleLineMaterial;
                 
                 playerToAssignTo.SetLevelMechanic(grappleLevelMechanic);
+                break;
+            case LevelMechanicType.Lobby :
+                LobbyLevelMechanic lobbyLevelMechanic = playerToAssignTo.gameObject.AddComponent<LobbyLevelMechanic>();
+
+                playerToAssignTo.SetLevelMechanic(lobbyLevelMechanic);
                 break;
             default:
                 break;  

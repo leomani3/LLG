@@ -30,6 +30,12 @@ public class PlayerController : NetworkBehaviour
     [Header("References")]
     [SerializeField] private TMP_Text pseudoText;
 
+    public float GravityMulitplier
+    {
+        get => gravityMulitplier;
+        set => gravityMulitplier = value;
+    }
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -47,11 +53,6 @@ public class PlayerController : NetworkBehaviour
         GroundCheck();
 
         HandleMovement();
-    }
-
-    public void Interact()
-    {
-
     }
 
     private void FixedUpdate()

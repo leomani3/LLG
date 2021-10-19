@@ -617,7 +617,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1503343599}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4871029862717252867}
+        m_TargetAssemblyTypeName: LobbyUI, Assembly-CSharp
+        m_MethodName: OnStartGameClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1503343599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1156,3 +1168,14 @@ PrefabInstance:
       objectReference: {fileID: 1503343598}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}
+--- !u!114 &4871029862717252867 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4871029862405000167, guid: e2f9b207a3ec4e9459d7ff6e74468515, type: 3}
+  m_PrefabInstance: {fileID: 4871029862717252866}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d430aa78695c9842ad4ef3101862312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

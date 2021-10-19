@@ -100,6 +100,14 @@ public class LobbyUI : NetworkBehaviour
                 {
                     pc.SetLobbyPlayerState(lps);
                 }
+
+                if (no.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+                {
+                    if (pc.GetComponent<LobbyLevelMechanic>() == null)
+                    {
+                        LevelMechanicFactory.Create(LevelMechanicType.Lobby, pc, null);
+                    }
+                }
             }
         }
 
@@ -121,10 +129,8 @@ public class LobbyUI : NetworkBehaviour
         }
 
         GameObject go = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
-        go.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
 
-        PlayerController pc = go.GetComponent<PlayerController>();
-        LevelMechanicFactory.Create(LevelMechanicType.Lobby, pc, null);
+        go.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -147,10 +153,13 @@ public class LobbyUI : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void StartGameServerRpc(ServerRpcParams serverRpcParams = default)
     {
+        Debug.Log("Pass 1");
         if (serverRpcParams.Receive.SenderClientId != NetworkManager.Singleton.LocalClientId) { return; }
 
+        Debug.Log("Pass 2");
         if (!IsEveryoneReady()) { return; }
 
+        Debug.Log("Pass 3");
         ServerGameNetPortal.Instance.StartGame();
     }
 

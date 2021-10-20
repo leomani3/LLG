@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2712787180714950875}
   - component: {fileID: 256365061}
   - component: {fileID: 256365060}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,18 +100,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd9cd571ce58bb4fb289491dfc46830, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50000
+  moveSpeed: 40000
   jumpForce: 60
   groundCheckRadius: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
   groundCheckPositionOffset: {x: 0, y: -0.5}
-  gravityMulitplier: 0.4
+  gravityMulitplier: 0.5
   playerKeyBinding: {fileID: 11400000, guid: 5686041c88339df4b8ca07412e9096b2, type: 2}
   bumpFXPoolRef: {fileID: 11400000, guid: b92c50fa1a9b2b346ab157d3a0f290ce, type: 2}
-  ejectionForce: 0
-  bumpRadius: 0
+  ejectionForce: 30
+  bumpRadius: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841465173519822566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
   m_Name: 

@@ -26,19 +26,17 @@ public class PlayerController : NetworkBehaviour
     private bool _grounded;
     private LobbyPlayerState _lobbyPlayerState;
     private ILevelMechanic _levelMechanic;
+    private float _initialGravity;
 
     [Header("References")]
     [SerializeField] private TMP_Text pseudoText;
 
-    public float GravityMulitplier
-    {
-        get => gravityMulitplier;
-        set => gravityMulitplier = value;
-    }
+    public Rigidbody2D Rb => _rb;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _initialGravity = gravityMulitplier;
     }
 
     private void Update()
@@ -56,7 +54,7 @@ public class PlayerController : NetworkBehaviour
 
     private void HandleMovement()
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         _moveVector = Vector2.zero;
 
@@ -71,6 +69,12 @@ public class PlayerController : NetworkBehaviour
 
         if (Input.GetKeyDown(playerKeyBinding.interact))
             _levelMechanic.Interact();
+    }
+
+    public void SetGravity(bool b)
+    {
+        if (b) gravityMulitplier = _initialGravity;
+        else gravityMulitplier = 0;
     }
 
     public void Eject(Vector2 direction, float force)

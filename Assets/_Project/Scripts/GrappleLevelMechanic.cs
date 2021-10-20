@@ -41,13 +41,15 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
 
     private IEnumerator Pull()
     {
-        _playerController.GravityMulitplier = 0;
+        _playerController.SetGravity(false);
         while (Vector3.Distance(transform.position, _raycastHit.point) > grappleMinLength)
         {
             _rigidbody.AddForce((_raycastHit.point - transform.position.ToVector2()) * 10, ForceMode2D.Force);
             yield return null;
         }
         
+        _playerController.Rb.velocity = Vector2.zero;
+
         HingeJoint2D hingeJoint = _objectConnectedTo.GetComponent<HingeJoint2D>();
         if (hingeJoint == null)
             hingeJoint = _raycastHit.collider.gameObject.AddComponent<HingeJoint2D>();
@@ -57,7 +59,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
 
         hingeJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_raycastHit.point);
 
-        _playerController.GravityMulitplier = 1;
+        _playerController.SetGravity(true);
     }
 
     public void Interact()
@@ -81,7 +83,6 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
                 StartCoroutine(Pull());
 
                 _objectConnectedTo = _raycastHit.collider.gameObject;
-                //_moveTween = transform.DOMove((_raycastHit.point + (transform.position.ToVector2() - _raycastHit.point).normalized * grappleMinLength), 0.5f);*/
             }
         }
         else
@@ -97,7 +98,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
         
         
         StopAllCoroutines();
-        _playerController.GravityMulitplier = 1;    
+        _playerController.SetGravity(true);  
         
         
         _moveTween.Kill();

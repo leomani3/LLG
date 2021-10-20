@@ -153,13 +153,10 @@ public class LobbyUI : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void StartGameServerRpc(ServerRpcParams serverRpcParams = default)
     {
-        Debug.Log("Pass 1");
         if (serverRpcParams.Receive.SenderClientId != NetworkManager.Singleton.LocalClientId) { return; }
 
-        Debug.Log("Pass 2");
         if (!IsEveryoneReady()) { return; }
 
-        Debug.Log("Pass 3");
         ServerGameNetPortal.Instance.StartGame();
     }
 

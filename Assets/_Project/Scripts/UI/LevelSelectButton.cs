@@ -37,6 +37,6 @@ public class LevelSelectButton : MonoBehaviour
         Button b = GetComponent<Button>();
 
         b.onClick.RemoveAllListeners();
-        b.onClick.AddListener(delegate {_lsu.ChangeSceneOnButtonPressedServerRpc(int.Parse(levelNumberText.text));});
+        b.onClick.AddListener(delegate {lsu.ChangeSceneOnButtonPressedServerRpc(int.Parse(levelNumberText.text));});
     }
 }

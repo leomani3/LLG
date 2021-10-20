@@ -93,7 +93,7 @@ public class ServerGameNetPortal : MonoBehaviour
     {
         _gameInProgress = true;
 
-        NetworkSceneManager.SwitchScene("Level Selection");
+        NetworkSceneManager.SwitchScene("LevelSelection");
     }
 
     public void EndRound()

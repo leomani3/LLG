@@ -41,10 +41,21 @@ public class LevelSelectionUI : NetworkBehaviour
         }
         if (IsServer)
         {
+            ToggleRaycastTarget();
             previousButton.gameObject.SetActive(true);
             nextButton.gameObject.SetActive(true);
 
             InstantiateAvailableLevelState();
+        }
+    }
+
+    private void ToggleRaycastTarget()
+    {
+        Image[] imgs = levelsContainerPanel.GetComponentsInChildren<Image>();
+
+        foreach (Image img in imgs)
+        {
+            img.raycastTarget = true;
         }
     }
 
@@ -67,6 +78,8 @@ public class LevelSelectionUI : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void ChangeSceneOnButtonPressedServerRpc(int sceneNumber, ServerRpcParams serverRpcParams = default)
     {
+        if (!IsServer) { return; }
+
         ServerGameNetPortal.Instance.LoadLevel(sceneNumber);
     }
 

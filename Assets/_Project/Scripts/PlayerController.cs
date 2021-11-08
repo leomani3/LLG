@@ -54,7 +54,7 @@ public class PlayerController : NetworkBehaviour
 
     private void HandleMovement()
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         _moveVector = Vector2.zero;
 

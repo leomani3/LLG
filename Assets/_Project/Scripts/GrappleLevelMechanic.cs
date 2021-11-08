@@ -3,6 +3,7 @@ using System.Collections;
 using DG.Tweening;
 using MyBox;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
 {
@@ -22,6 +23,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
     private LineRenderer _lineRenderer;
     private Rigidbody2D _rigidbody;
     private PlayerController _playerController;
+    private HingeJoint2D _connectedJoint;
 
     private void Awake()
     {
@@ -50,16 +52,24 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
         
         _playerController.Rb.velocity = Vector2.zero;
         
-        HingeJoint2D hingeJoint = _objectConnectedTo.GetComponent<HingeJoint2D>();
-        if (hingeJoint == null)
-            hingeJoint = _raycastHits[0].collider.gameObject.AddComponent<HingeJoint2D>();
+        _connectedJoint = _raycastHits[0].collider.gameObject.AddComponent<HingeJoint2D>();
 
-        hingeJoint.connectedBody = GetComponent<Rigidbody2D>();
-        hingeJoint.enableCollision = true;
+        _connectedJoint.connectedBody = GetComponent<Rigidbody2D>();
+        _connectedJoint.enableCollision = true;
 
-        hingeJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_raycastHits[0].point);
+        _connectedJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_objectConnectedTo.transform.position);
 
         _playerController.SetGravity(true);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        PlayerController enemy = other.gameObject.GetComponent<PlayerController>();
+        if (enemy != null && _connected)
+        {
+            print(gameObject);
+            Disconnect();
+        }
     }
 
     public void Interact()
@@ -100,9 +110,10 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
         if (_lineRenderer != null)
             Destroy(_lineRenderer);
         
-        
         StopAllCoroutines();
         _playerController.SetGravity(true);  
+        Destroy(_connectedJoint);
+        _connectedJoint = null;
         
         
         _moveTween.Kill();

@@ -18,7 +18,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
     private Vector3 _worldMousePos;
     private Camera _mainCam;
     private RaycastHit2D[] _raycastHits;
-    private GameObject _objectConnectedTo;
+    private Grappable _objectConnectedTo;
     private Tween _moveTween;
     private LineRenderer _lineRenderer;
     private Rigidbody2D _rigidbody;
@@ -37,27 +37,27 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
         if (_connected && _lineRenderer != null)
         {
             _lineRenderer.SetPosition(0, transform.position);
-            _lineRenderer.SetPosition(1, _objectConnectedTo.transform.position);
+            _lineRenderer.SetPosition(1, _objectConnectedTo.GrappleAnchor.position);
         }
     }
 
     private IEnumerator Pull()
     {
         _playerController.SetGravity(false);
-        while (Vector3.Distance(transform.position, _raycastHits[0].point) > grappleMinLength)
+        while (Vector3.Distance(transform.position, _objectConnectedTo.GrappleAnchor.position) > grappleMinLength)
         {
-            _rigidbody.AddForce((_raycastHits[0].point - transform.position.ToVector2()) * 10, ForceMode2D.Force);
+            _rigidbody.AddForce((_objectConnectedTo.GrappleAnchor.position.ToVector2() - transform.position.ToVector2()) * 10, ForceMode2D.Force);
             yield return null;
         }
         
         _playerController.Rb.velocity = Vector2.zero;
         
-        _connectedJoint = _raycastHits[0].collider.gameObject.AddComponent<HingeJoint2D>();
+        _connectedJoint = _objectConnectedTo.gameObject.AddComponent<HingeJoint2D>();
 
         _connectedJoint.connectedBody = GetComponent<Rigidbody2D>();
         _connectedJoint.enableCollision = true;
 
-        _connectedJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_objectConnectedTo.transform.position);
+        _connectedJoint.anchor = _objectConnectedTo.transform.InverseTransformPoint(_objectConnectedTo.GrappleAnchor.position);
 
         _playerController.SetGravity(true);
     }
@@ -66,10 +66,7 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
     {
         PlayerController enemy = other.gameObject.GetComponent<PlayerController>();
         if (enemy != null && _connected)
-        {
-            print(gameObject);
             Disconnect();
-        }
     }
 
     public void Interact()
@@ -80,11 +77,18 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
             Ray ray = new Ray(transform.position, _worldMousePos - transform.position);
 
             _raycastHits = Physics2D.RaycastAll(ray.origin, ray.direction, 100, layerMask);
-            if (_raycastHits.Length > 0 && _raycastHits[0].collider.gameObject == gameObject)
-                _raycastHits = _raycastHits.RemoveAt(0);
+
+            foreach (RaycastHit2D raycastHit2D in _raycastHits)
+            {
+                if (raycastHit2D.collider.GetComponent<Grappable>())
+                {
+                    _objectConnectedTo = raycastHit2D.collider.GetComponent<Grappable>();
+                    break;
+                }
+            }
 
 
-            if (_raycastHits.Length > 0 && _raycastHits[0].collider != null)
+            if (_objectConnectedTo != null)
             {
                 _connected = true;
 
@@ -93,8 +97,6 @@ public class GrappleLevelMechanic : MonoBehaviour, ILevelMechanic
                 _lineRenderer.positionCount = 2;
                 _lineRenderer.widthMultiplier = 0.1f;
                 _lineRenderer.material = lineMaterial;
-
-                _objectConnectedTo = _raycastHits[0].collider.gameObject;
 
                 StartCoroutine(Pull());
             }
